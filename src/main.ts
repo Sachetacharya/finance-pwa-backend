@@ -16,10 +16,10 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: process.env.CORS_ORIGINS?.split(',') ?? [
+    origin: [
       'http://localhost:4200',
       'http://localhost:3000',
-      '*',
+      
     ],
     credentials: true,
   });
