@@ -2,14 +2,12 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
-import * as compression from 'compression';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(helmet());
-  app.use(compression());
 
   app.setGlobalPrefix('api');
 
@@ -21,6 +19,7 @@ async function bootstrap() {
     origin: process.env.CORS_ORIGINS?.split(',') ?? [
       'http://localhost:4200',
       'http://localhost:3000',
+      '*',
     ],
     credentials: true,
   });
