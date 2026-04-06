@@ -15,12 +15,15 @@ async function bootstrap() {
     new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
   );
 
+  // CORS_ORIGINS env var = comma-separated list of allowed origins
+  // e.g.  CORS_ORIGINS=https://your-app.netlify.app,https://your-custom-domain.com
+  const rawOrigins = process.env.CORS_ORIGINS;
+  const corsOrigin = rawOrigins
+    ? rawOrigins.split(',').map(o => o.trim())
+    : true; // allow all origins when env var is not set
+
   app.enableCors({
-    origin: [
-      'http://localhost:4200',
-      'http://localhost:3000',
-      
-    ],
+    origin: corsOrigin,
     credentials: true,
   });
 
